@@ -21,7 +21,7 @@ def client_function(client):
             with open(f"./server-files/{requested_file}", "rb") as file:
                 request_answer = client.send(file.read(1024))
         else:
-            client.send(b"dadash in file inja nistesh!!!")
+            client.send(b"File not found!")
 clients = []
 run = 2
 while run:

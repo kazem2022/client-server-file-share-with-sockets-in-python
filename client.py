@@ -12,7 +12,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
     file_name = input()
     request = client.sendall(file_name.encode())
     requested_file = client.recv(1024)
-    if requested_file == b"dadash in file inja nistesh!!!":
+    if requested_file == b"File not found!":
         print(requested_file.decode()) 
     else:
         with open(f"./client-files/{file_name}", "wb") as file:
