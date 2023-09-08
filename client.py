@@ -8,7 +8,7 @@ import os
 
 # print(data)
 ip = "localhost"
-port = 8005
+port = 8000
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
     client.connect((ip, port))
     # client.send(b"quit")
