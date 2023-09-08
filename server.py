@@ -23,8 +23,7 @@ def client_function(client):
         else:
             client.send(b"File not found!")
 clients = []
-run = 2
-while run:
+while True:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.bind((ip, port))
         server.listen(5)
