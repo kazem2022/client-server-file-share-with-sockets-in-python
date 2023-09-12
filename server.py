@@ -3,7 +3,8 @@ import os
 import threading
 
 ip = "127.0.0.1"
-port = 8080
+port = 8082
+buffer_size = 8192 #Bytes = 8KB
 
 def client_function(client):
     
@@ -16,14 +17,14 @@ def client_function(client):
     #     data2 = file.read(4072)
     client.send("\nPlease input the desired file name:\n ".encode())
     
-    requested_file = client.recv(1024).decode()
-    if requested_file in files:
+    requested_file = client.recv(buffer_size).decode()
+    try:
         with open(f"../server-files/{requested_file}", "rb") as file:
-            request_answer = client.send(file.read(1024))
+            request_answer = client.send(file.read(buffer_size))
         print(request_answer)
-    else:
+    except FileNotFoundError:
         client.send(b"File not found!")
-clients = []
+# clients = []
 while True:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.bind((ip, port))
@@ -33,7 +34,7 @@ while True:
         client, address = server.accept() 
         print(f"client with address: {address} connected")
         # print("client:", client)
-        clients.append(client)
+        # clients.append(client)
         client_thread = threading.Thread(target=client_function, args=(client,))
         client_thread.start()
     
