@@ -34,5 +34,6 @@ while True:
         print(f"client with address: {address} connected")
         # print("client:", client)
         clients.append(client)
-        threading.Thread(target=client_function, args=(client,)).start()
+        client_thread = threading.Thread(target=client_function, args=(client,))
+        client_thread.start()
     
