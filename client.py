@@ -2,7 +2,7 @@ import socket
 import os
 
 ip = "localhost"
-port = 8082
+port = 8086
 buffer_size = 8192 #Bytes = KB
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
@@ -18,7 +18,13 @@ def main():
             print(requested_file.decode()) 
         else:
             with open(f"../client-files/{file_name}", "wb") as file:
-                file.write(requested_file)
+                while True:
+                    data = client.recv(buffer_size)
+                    if data == b"file sent!":
+                        print("***************")
+                        break
+                    file.write(data)
+                                         
             print("file downloaded from server.")
         
 if __name__ == "__main__":

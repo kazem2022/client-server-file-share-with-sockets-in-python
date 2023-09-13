@@ -3,7 +3,8 @@ import os
 import threading
 
 ip = "127.0.0.1"
-port = 8082
+port = 8086
+
 buffer_size = 8192 #Bytes = 8KB
 
 def client_function(client):
@@ -19,9 +20,21 @@ def client_function(client):
     
     requested_file = client.recv(buffer_size).decode()
     try:
-        with open(f"../server-files/{requested_file}", "rb") as file:
-            request_answer = client.send(file.read(buffer_size))
-        print(request_answer)
+        file_path = f"../server-files/{requested_file}"
+        with open(file_path, "rb") as file:
+            file_size = os.stat(file_path).st_size
+            steps = int(file_size/buffer_size + 1)
+            # print(steps)
+            for step in range(steps):
+                data = file.read(buffer_size)
+                # while data:    
+                client.send(data)
+                # data = file.read(buffer_size)
+                # print(step)
+            client.send(b"file sent!")
+            print("file sent!!!")
+            
+            
     except FileNotFoundError:
         client.send(b"File not found!")
 # clients = []
