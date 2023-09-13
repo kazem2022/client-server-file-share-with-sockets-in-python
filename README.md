@@ -23,7 +23,7 @@ This code tested with localhost ip and a desired port:
 
 ![image](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/55a9fec1-9b9e-4cfd-bae6-9e0ad0a022f3)
 
-* Large file transfering approach added with buffer-size
+* Large file transfering approach added with buffer method
 
 * 2-way socket file sharing added, you can transfer file from client to server and reverse.
 
