@@ -1,9 +1,10 @@
 import socket
 import os
+from tqdm import tqdm
 
 ip = "localhost"
 port = 8086
-buffer_size = 8192 #Bytes = KB
+buffer_size = 512 #Bytes = KB
 def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((ip, port))
@@ -13,7 +14,10 @@ def main():
         print(message2)
         file_name = input()
         request = client.sendall(file_name.encode())
+        file_size = int(client.recv(buffer_size).decode())
+        # print("file_size:", file_size)
         requested_file = client.recv(buffer_size)
+        progress = tqdm(range(file_size), f"receiving {file_name}", unit="B", unit_scale=True, unit_divisor=buffer_size)
         if requested_file == b"File not found!":
             print(requested_file.decode()) 
         else:
@@ -24,6 +28,7 @@ def main():
                         print("***************")
                         break
                     file.write(data)
+                    progress.update(len(data))
                                          
             print("file downloaded from server.")
         

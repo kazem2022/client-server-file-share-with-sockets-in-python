@@ -1,11 +1,12 @@
 import socket
 import os
 import threading
+from tqdm import tqdm
 
 ip = "127.0.0.1"
 port = 8086
 
-buffer_size = 8192 #Bytes = 8KB
+buffer_size = 512 #Bytes = 8KB
 
 def client_function(client):
     
@@ -21,8 +22,10 @@ def client_function(client):
     requested_file = client.recv(buffer_size).decode()
     try:
         file_path = f"../server-files/{requested_file}"
+        file_size = os.stat(file_path).st_size
+        client.send(str(file_size).encode())
+        progress = tqdm(range(file_size), f"sendig {requested_file}", unit="B", unit_scale=True, unit_divisor=buffer_size)
         with open(file_path, "rb") as file:
-            file_size = os.stat(file_path).st_size
             steps = int(file_size/buffer_size + 1)
             # print(steps)
             for step in range(steps):
@@ -31,6 +34,7 @@ def client_function(client):
                 client.send(data)
                 # data = file.read(buffer_size)
                 # print(step)
+                progress.update(len(data))
             client.send(b"file sent!")
             print("file sent!!!")
             
