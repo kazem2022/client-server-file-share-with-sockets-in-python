@@ -6,13 +6,12 @@ ip = "localhost"
 port = 8086
 buffer_size = 512 #Bytes => KB
 
-
-
-
-
 def receive_file():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((ip, port))
+        
+        client.send("down".encode())
+        
         message = client.recv(buffer_size).decode()
         print(message)
         message2 = client.recv(buffer_size).decode()
@@ -38,14 +37,53 @@ def receive_file():
             print("file downloaded from server.")
 
 def send_file():
-    pass
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
+        client.connect((ip, port))
+        print("connected to the server.")
+        client.send("up".encode())
+        files = os.listdir("../client-files")
+        files_path = "\n".join(files)
+        print(files_path)
+        file_name = input("select your desire file...\n")
+                   
+        try:
+            path = f"../client-files/{file_name}"
+            file_size = os.stat(path).st_size
+            client.send(str(file_size).encode())
+            client.send(file_name.encode())
+            progress = tqdm(range(file_size), f"sendig {file_name}", unit="B", unit_scale=True, unit_divisor=buffer_size)
+            
+            with open(path, "rb") as file:
+                steps = int(file_size/buffer_size + 1)
+                for step in range(steps):
+                    data = file.read(buffer_size)
+                    client.send(data)
+                    progress.update(len(data))
+                client.send(b"file sent!")
+                print("file sent!!!")
+                
+        except FileNotFoundError:
+            print("File not found!")
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 def loader():
     answer = input("do you wanna upload a file or download from server?        up/down :  ")
     if answer.lower() == "up":
         send_file()
-    if answer.lower() == "down":
+    elif answer.lower() == "down":
         receive_file()
+    else:
+        print("type your response is incorrect!!")
+        
 
 if __name__ == "__main__":
     loader()

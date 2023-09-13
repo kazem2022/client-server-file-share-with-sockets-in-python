@@ -34,8 +34,26 @@ def send_file(client):
         client.send(b"File not found!")
 
 
-def receive_file():
-    pass
+def receive_file(client):
+   
+    file_size = int(client.recv(buffer_size).decode())
+    print("file_size:", file_size)
+    file_name = client.recv(buffer_size).decode()
+    
+    progress = tqdm(range(file_size), f"receiving {file_name}", unit="B", unit_scale=True, unit_divisor=buffer_size)
+    
+    with open(f"../server-files/{file_name}", "wb") as file:
+        while True:
+            data = client.recv(buffer_size)
+            if data == b"file sent!":
+                print("***************")
+                break
+            file.write(data)
+            progress.update(len(data))
+                                    
+    print("file downloaded from server.") 
+
+
 
 while True:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
@@ -45,6 +63,12 @@ while True:
         
         client, address = server.accept() 
         print(f"client with address: {address} connected")
-        client_thread = threading.Thread(target=send_file, args=(client,))
-        client_thread.start()
+        
+        answer = client.recv(buffer_size).decode()
+        if answer == "up":
+            client_thread = threading.Thread(target=receive_file, args=(client,))
+            client_thread.start()
+        if answer == "down":
+            client_thread = threading.Thread(target=send_file, args=(client,))
+            client_thread.start()
     
