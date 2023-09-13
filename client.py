@@ -4,8 +4,13 @@ from tqdm import tqdm
 
 ip = "localhost"
 port = 8086
-buffer_size = 512 #Bytes = KB
-def main():
+buffer_size = 512 #Bytes => KB
+
+
+
+
+
+def receive_file():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((ip, port))
         message = client.recv(buffer_size).decode()
@@ -31,9 +36,19 @@ def main():
                     progress.update(len(data))
                                          
             print("file downloaded from server.")
+
+def send_file():
+    pass
         
+def loader():
+    answer = input("do you wanna upload a file or download from server?        up/down :  ")
+    if answer.lower() == "up":
+        send_file()
+    if answer.lower() == "down":
+        receive_file()
+
 if __name__ == "__main__":
-    main()
+    loader()
     
    
 

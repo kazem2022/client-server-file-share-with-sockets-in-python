@@ -5,18 +5,13 @@ from tqdm import tqdm
 
 ip = "127.0.0.1"
 port = 8086
+buffer_size = 512 #Bytes => KB
 
-buffer_size = 512 #Bytes = 8KB
-
-def client_function(client):
+def send_file(client):
     
     files = os.listdir("../server-files")
     files_path = "\n".join(files)
-    
     client.send(files_path.encode())
-    
-    # with open("../server-files/a.txt", "rb") as file:
-    #     data2 = file.read(4072)
     client.send("\nPlease input the desired file name:\n ".encode())
     
     requested_file = client.recv(buffer_size).decode()
@@ -25,23 +20,23 @@ def client_function(client):
         file_size = os.stat(file_path).st_size
         client.send(str(file_size).encode())
         progress = tqdm(range(file_size), f"sendig {requested_file}", unit="B", unit_scale=True, unit_divisor=buffer_size)
+        
         with open(file_path, "rb") as file:
             steps = int(file_size/buffer_size + 1)
-            # print(steps)
             for step in range(steps):
                 data = file.read(buffer_size)
-                # while data:    
                 client.send(data)
-                # data = file.read(buffer_size)
-                # print(step)
                 progress.update(len(data))
             client.send(b"file sent!")
             print("file sent!!!")
             
-            
     except FileNotFoundError:
         client.send(b"File not found!")
-# clients = []
+
+
+def receive_file():
+    pass
+
 while True:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.bind((ip, port))
@@ -50,8 +45,6 @@ while True:
         
         client, address = server.accept() 
         print(f"client with address: {address} connected")
-        # print("client:", client)
-        # clients.append(client)
-        client_thread = threading.Thread(target=client_function, args=(client,))
+        client_thread = threading.Thread(target=send_file, args=(client,))
         client_thread.start()
     
