@@ -10,7 +10,7 @@ import time
 
 ip = "localhost"
 port = 8092
-buffer_size = 512 #Bytes => KB
+buffer_size = 8192 #Bytes => 8 KB
 
 lbx_answer = []
 def select_from_list(files_list):
@@ -77,7 +77,6 @@ def receive_file():
                 def downloading():
                     """This function download data from the server."""
                     download = 0
-                    buffer_size = 8192
                     
                     while (download<file_size):
                         data = client.recv(buffer_size)
@@ -139,7 +138,6 @@ def send_file(file_name):
                 def uploading():
                     """This function upload data to the server."""
                     download = 0
-                    buffer_size = 8192
                     
                     while(download<file_size):
                         data = file.read(buffer_size)

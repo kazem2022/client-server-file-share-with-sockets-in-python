@@ -7,7 +7,7 @@ from tqdm import tqdm
 """Initial data"""
 ip = "127.0.0.1"
 port = 8092
-buffer_size = 512 #1024 >> 8192 Bytes => 8KB
+buffer_size = 8192 #1024 >> 8192 Bytes => 8KB
 
 def send_file(client):
     """This function sends data to clients."""
