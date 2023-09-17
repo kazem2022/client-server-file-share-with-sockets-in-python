@@ -33,6 +33,27 @@ This code tested with localhost ip and a desired port:
 ![image](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/805ebdfd-a42a-4c13-9896-4c7e2373be10)
 ![image](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/fd9bd9b3-da60-4cea-ba5a-604a266ea3d6)
 
+In the last step, I applied a graphic user interface (GUI) using the Tkinter library in Python:
+User selection page:
+![welcome page](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/ac94464d-6ca1-4d41-a990-04e6a8060305)
+
+If download selected:
+![download list2](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/7d9cd08a-db17-4f2c-bab9-f0ec7fe314aa)
+
+
+![loading bar-start](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/c0d88f3b-4e08-49b6-b2a5-ceb09d420128)
+
+By clicking download button:
+![loading bar-start1](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/f27096f5-9c67-4f4d-8967-bd2832b19487)
+File downloaded from the server.
+
+** If user select upload:
+
+![welcome upload](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/f106f49b-b9f5-407b-a347-b180d51dd2e3)
+
+![file to upload](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/bf1c7ecb-7c5b-4ef1-a177-9a5f2824f89a)
+
+![choose to upload](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/20b64c4f-6223-4527-9ca6-6c18504f542b)
 
 
 For more information about the code, you can send me an email: k_jebraeeli@yahoo.com
