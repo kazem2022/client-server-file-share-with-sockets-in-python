@@ -52,20 +52,19 @@ def receive_file():
             files_list.append(file)
         
         # ISERT FLIES TO LIST BOX
-        #THEN USER SELECT ONE FILE
+        # THEN USER SELECT ONE FILE
         select_from_list(files_list)
         file_name = lbx_answer[0]
             
         print(files_list)
         input_message = client.recv(buffer_size).decode()
         print(input_message)
-        # file_name = input()
         time.sleep(1)
         client.sendall(file_name.encode())
         file_size = int(client.recv(buffer_size).decode())
         requested_file = client.recv(buffer_size)
         
-        # Make a progress to drawing progress-bar
+        # Making a progress to drawing progress-bar
         progress = tqdm(range(file_size), f"receiving {file_name}",
                         unit="B", unit_scale=False, unit_divisor=buffer_size)
         
@@ -135,7 +134,7 @@ def send_file(file_name):
             with open(path, "rb") as file:
                 steps = int(file_size/buffer_size + 1)
                 print(steps)
-                #progress bar
+                # Progress bar
                 load = "upload"
                 def uploading():
                     """This function upload data to the server."""
@@ -157,7 +156,6 @@ def send_file(file_name):
                     client.send(b"File sent!")
                     print("\nFile sent!!!")
                 window = Tk()
-                # window.geometry("300x130+200+200")
                 window.title("Upload to sever")
 
                 percent = StringVar()
@@ -183,7 +181,7 @@ def client_answer():
     window.geometry("400x400+40+40")
     window.title("Client")
     window.configure(bg="#dad7cd")
-    # Some widgets
+
     lbl = Label(master=window, anchor=N, text="welcome",
                 font=("Arial",18), bg="#3a5a40", fg="#dad7cd").pack(padx=10, pady=40)
     lb2 = Label(master=window, anchor=N,
@@ -203,12 +201,10 @@ def client_answer():
     submit_btn.place(x=140, y=260)
 
     download_btn = Radiobutton(master=window, text="download", bd =2, bg="#129490",
-                font=("Arial Black", 12),
-                variable=var, value=1)
+                font=("Arial Black", 12),variable=var, value=1)
     download_btn.pack(padx=2, pady=2)
     upload_btn = Radiobutton(master=window, text="upload", bd =2, bg="#129490",
-                font=("Arial Black", 12),
-                variable=var, value=2)
+                font=("Arial Black", 12),variable=var, value=2)
     upload_btn.pack(padx=2, pady=2)
     window.mainloop()
 
