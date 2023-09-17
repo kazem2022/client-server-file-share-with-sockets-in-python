@@ -1,4 +1,4 @@
-"""Importing library"""
+"""Importing libraries"""
 import socket
 import os
 from tqdm import tqdm
@@ -12,37 +12,9 @@ ip = "localhost"
 port = 8092
 buffer_size = 512 #Bytes => KB
 
-def loading_bar(file_name, file_size, load):
-    def start():
-        download = 0
-        buffer_size = 8192
-        while(download < file_size):
-            # time.sleep(0.05)
-            bar['value']+=(buffer_size/file_size)*100
-            download+=buffer_size
-            percent.set(str(int((download/file_size)*100))+"%")
-            text.set(str(download)+"/"+str(file_size)+f" {file_name} {load} completed")
-            window.update_idletasks()
-            if download == file_size:
-                window.destroy()
-    window = Tk()
-    window.title("Download from sever")
-
-    percent = StringVar()
-    text = StringVar()
-
-    bar = pb_tk.Progressbar(window,orient=HORIZONTAL,length=300)
-    bar.pack(pady=10)
-
-    percentLabel = Label(window,textvariable=percent).pack()
-    taskLabel = Label(window,textvariable=text).pack()
-
-    button = Button(window,text=f"{load}",command=start).pack()
-
-    window.mainloop()
-    
 lbx_answer = []
 def select_from_list(files_list):
+    """This function select file from list to download."""
     Download_win = Tk()
     Download_win.geometry("400x400+40+40")
     Download_win.title("Download")
@@ -57,17 +29,18 @@ def select_from_list(files_list):
     for file in files_list:
         server_txt.insert(END, file)
 
-    def down():
+    def request():
+        """This function earn user selected file name."""
         fileName = server_txt.get(ACTIVE)
         Download_win.destroy()
         lbx_answer.append(fileName)
-    submit = Button(master=Download_win, text="submit", command=down).pack()
+    submit = Button(master=Download_win, text="submit", command=request).pack()
 
     Download_win.mainloop()
 
 files_list = []
 def receive_file():
-    """This function receive data from server"""
+    """This function receive data from the server."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((ip, port))
         client.send("down".encode())
@@ -102,7 +75,8 @@ def receive_file():
             # File receiving cycle
             with open(f"../client-files/{file_name}", "wb") as file:
                 load = "download"
-                def start():
+                def downloading():
+                    """This function download data from the server."""
                     download = 0
                     buffer_size = 8192
                     
@@ -132,14 +106,14 @@ def receive_file():
 
                 percentLabel = Label(window,textvariable=percent).pack()
                 taskLabel = Label(window,textvariable=text).pack()
-                button = Button(window,text=f"{load}",command=start).pack()
+                button = Button(window,text=f"{load}",command=downloading).pack()
 
                 window.mainloop()
                     
             print("file downloaded from server.")
 
 def send_file(file_name):
-    """This function send data to server"""
+    """This function send data to server."""
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         client.connect((ip, port))
         print("connected to the server.")
@@ -164,6 +138,7 @@ def send_file(file_name):
                 #progress bar
                 load = "upload"
                 def start():
+                    """This function upload data to the server."""
                     download = 0
                     buffer_size = 8192
                     
@@ -203,6 +178,7 @@ def send_file(file_name):
 
 ans = []
 def client_answer():
+    """This function receive client request, Downloading or Uploading a file."""
     window = Tk()
     window.geometry("400x400+40+40")
     window.title("Client")
@@ -247,6 +223,7 @@ def select_file():
                 font=("Arial",18), bg="#3a5a40", fg="#dad7cd")
     lb3.pack(padx=10, pady=40)
     def open():
+        """This function opens a directory for choosing a file from the client."""
         try:
             file_path = filedialog.askopenfile(initialdir="../client_files", title ="open")
             selected_file.append(file_path.name)
@@ -265,7 +242,7 @@ def select_file():
     upload_win.mainloop() 
         
 def loader():
-    """This function is handling clieddnt works"""
+    """This function is handling client request."""
     client_answer()
     if ans[0] == 1:
         receive_file()
