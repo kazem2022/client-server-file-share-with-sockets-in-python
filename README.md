@@ -50,6 +50,8 @@ By clicking download button:
 
 ![loading bar-start1](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/f27096f5-9c67-4f4d-8967-bd2832b19487)
 
+![messagebox-file-downloaded](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/f021decf-dbbd-479e-84d9-13305d5d74fe)
+
 
 File downloaded from the server.
 
@@ -63,6 +65,8 @@ File downloaded from the server.
 
 
 ![uploading bar](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/4a35c3dd-be99-4806-bd7b-2bb856ffd30c)
+
+![messagebox-file-uploaded](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/316da3c5-31db-4f39-93a5-6d398806e158)
 
 
 For more information about the code, you can send me an email: k_jebraeeli@yahoo.com
