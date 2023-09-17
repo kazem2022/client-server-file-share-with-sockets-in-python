@@ -5,7 +5,7 @@ from tqdm import tqdm
 from tkinter import *
 from tkinter import filedialog
 import tkinter.ttk as pb_tk
-# from tkinter import messagebox
+from tkinter import messagebox
 import time
 
 ip = "localhost"
@@ -177,6 +177,7 @@ def send_file(file_name):
                         text.set(str(download)+"/"+str(file_size)+f" {file_name} {load} completed")
                         window.update_idletasks()
                     time.sleep(1)    
+                    
                     window.destroy()
                     client.send(b"File sent!")
                     print("\nFile sent!!!")
@@ -198,6 +199,7 @@ def send_file(file_name):
                 
         except FileNotFoundError:
             print("File not found!")
+    
 
 ans = []
 def client_answer():
@@ -263,16 +265,18 @@ def select_file():
     upload_win.mainloop() 
         
 def loader():
-    """This function is handling client works"""
+    """This function is handling clieddnt works"""
     client_answer()
     if ans[0] == 1:
         receive_file()
+        messagebox.showinfo("info", "File downloaded")
     elif ans[0] == 2:
         select_file()
         path1 = selected_file[0]
         print(path1.split("/")[-1])
         fileName = path1.split("/")[-1]
         send_file(fileName)
+        messagebox.showinfo("info", "File uploaded")
     
 if __name__ == "__main__":
     loader()
