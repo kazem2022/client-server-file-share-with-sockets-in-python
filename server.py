@@ -10,7 +10,7 @@ port = 8092
 buffer_size = 512 #Bytes => KB
 
 def send_file(client):
-    """This function sends data to clients"""
+    """This function sends data to clients."""
     files = os.listdir("../server-files")
     files_path = "\n".join(files)
     client.send(files_path.encode())
@@ -54,7 +54,7 @@ def receive_file(client):
     print("File downloaded from server.") 
 
 
-"""Server main loop for listening"""
+"""Server main loop for listening."""
 while True:
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.bind((ip, port))

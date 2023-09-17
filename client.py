@@ -137,7 +137,7 @@ def send_file(file_name):
                 print(steps)
                 #progress bar
                 load = "upload"
-                def start():
+                def uploading():
                     """This function upload data to the server."""
                     download = 0
                     buffer_size = 8192
@@ -168,7 +168,7 @@ def send_file(file_name):
 
                 percentLabel = Label(window,textvariable=percent).pack()
                 taskLabel = Label(window,textvariable=text).pack()
-                button = Button(window,text=f"{load}",command=start).pack()
+                button = Button(window,text=f"{load}",command=uploading).pack()
 
                 window.mainloop()
                 
@@ -213,7 +213,7 @@ def client_answer():
     window.mainloop()
 
 selected_file = []
-def select_file():
+def select_file_to_upload():
     upload_win = Tk()
     upload_win.geometry("400x400+40+40")
     upload_win.title("Upload")
@@ -232,7 +232,6 @@ def select_file():
     choose_btn = Button(master=upload_win, text="choose a file", command=open)
     choose_btn.pack()
 
-    # show_message = messagebox.showinfo("Your selected file: ", f"{open()}")
     def send():
         print("File sent!")
         upload_win.destroy()
@@ -241,14 +240,14 @@ def select_file():
 
     upload_win.mainloop() 
         
-def loader():
+def task_switcher():
     """This function is handling client request."""
     client_answer()
     if ans[0] == 1:
         receive_file()
         messagebox.showinfo("info", "File downloaded")
     elif ans[0] == 2:
-        select_file()
+        select_file_to_upload()
         path1 = selected_file[0]
         print(path1.split("/")[-1])
         fileName = path1.split("/")[-1]
@@ -256,5 +255,5 @@ def loader():
         messagebox.showinfo("info", "File uploaded")
     
 if __name__ == "__main__":
-    loader()
+    task_switcher()
     
