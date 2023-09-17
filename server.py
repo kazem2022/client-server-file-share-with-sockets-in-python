@@ -22,7 +22,7 @@ def send_file(client):
         file_path = f"../server-files/{requested_file}"
         file_size = os.stat(file_path).st_size
         client.send(str(file_size).encode())
-        progress = tqdm(range(file_size), f"sendig {requested_file}", unit="B", unit_scale=True, unit_divisor=buffer_size)
+        progress = tqdm(range(file_size), f"sendig {requested_file}", unit="B", unit_scale=False, unit_divisor=buffer_size)
         with open(file_path, "rb") as file:
             steps = int(file_size/buffer_size + 1)
             for step in range(steps):
@@ -42,7 +42,7 @@ def receive_file(client):
     print("file_size:", file_size)
     file_name = client.recv(buffer_size).decode()
     progress = tqdm(range(file_size), f"receiving {file_name}",
-                    unit="B", unit_scale=True, unit_divisor=buffer_size)
+                    unit="B", unit_scale=False, unit_divisor=buffer_size)
     with open(f"../server-files/{file_name}", "wb") as file:
         while True:
             data = client.recv(buffer_size)
