@@ -47,7 +47,10 @@ If download selected:
 ![loading bar-start](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/c0d88f3b-4e08-49b6-b2a5-ceb09d420128)
 
 By clicking download button:
+
 ![loading bar-start1](https://github.com/kazem2022/client-server-file-share-with-sockets-in-python/assets/118965194/f27096f5-9c67-4f4d-8967-bd2832b19487)
+
+
 File downloaded from the server.
 
 ** If user select upload:
