@@ -171,7 +171,6 @@ def send_file(file_name):
         except FileNotFoundError:
             print("File not found!")
     
-
 ans = []
 def client_answer():
     """This function receive client request, Downloading or Uploading a file."""
@@ -234,7 +233,7 @@ def select_file_to_upload():
 
     upload_win.mainloop() 
         
-def task_switcher():
+def task_taskmanager():
     """This function is handling client request."""
     client_answer()
     if ans[0] == 1:
@@ -249,5 +248,5 @@ def task_switcher():
         messagebox.showinfo("info", "File uploaded")
     
 if __name__ == "__main__":
-    task_switcher()
+    task_taskmanager()
     
