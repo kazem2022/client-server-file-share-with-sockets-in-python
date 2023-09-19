@@ -11,7 +11,7 @@ buffer_size = 8192 #1024 >> 8192 Bytes => 8KB
 
 def send_file(client):
     """This function sends data to clients."""
-    files = os.listdir("../server-files")
+    files = os.listdir("./server-files")
     files_path = "\n".join(files)
     client.send(files_path.encode())
     client.send("\nPlease input the desired file name:\n ".encode())
@@ -19,7 +19,7 @@ def send_file(client):
     
     # Error handling
     try:
-        file_path = f"../server-files/{requested_file}"
+        file_path = f"./server-files/{requested_file}"
         file_size = os.stat(file_path).st_size
         client.send(str(file_size).encode())
         progress = tqdm(range(file_size), f"sendig {requested_file}", unit="B",
@@ -46,7 +46,7 @@ def receive_file(client):
     progress = tqdm(range(file_size), f"receiving {file_name}",
                     unit="B", unit_scale=False, unit_divisor=buffer_size,
                     )
-    with open(f"../server-files/{file_name}", "wb") as file:
+    with open(f"./server-files/{file_name}", "wb") as file:
         while True:
             data = client.recv(buffer_size)
             if data == b"file sent!":

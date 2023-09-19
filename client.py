@@ -72,7 +72,7 @@ def receive_file():
             print(requested_file.decode()) 
         else:
             # File receiving cycle
-            with open(f"../client-files/{file_name}", "wb") as file:
+            with open(f"./client-files/{file_name}", "wb") as file:
                 load = "download"
                 def downloading():
                     """This function download data from the server."""
@@ -119,7 +119,7 @@ def send_file(file_name):
         time.sleep(1)
         # Error handling
         try:
-            path = f"../client-files/{file_name}"
+            path = f"./client-files/{file_name}"
             file_size = os.stat(path).st_size
 
             client.send(str(file_size).encode())
@@ -218,7 +218,7 @@ def select_file_to_upload():
     def open():
         """This function opens a directory for choosing a file from the client."""
         try:
-            file_path = filedialog.askopenfile(initialdir="../client_files", title ="open")
+            file_path = filedialog.askopenfile(initialdir="./client_files", title ="open")
             selected_file.append(file_path.name)
         except Exception:
             print("Select a file!")
