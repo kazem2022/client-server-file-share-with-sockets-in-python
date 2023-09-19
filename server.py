@@ -56,20 +56,22 @@ def receive_file(client):
     print("File downloaded from server.") 
 
 """Server main loop for listening."""
-while True:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
-        server.bind((ip, port))
-        server.listen(5)
-        print(f"Server is listening on address:{ip,port}...")
-        client, address = server.accept() 
-        print(f"Client with address: {address} connected")
-        
-        # Threading system
-        answer = client.recv(buffer_size).decode()
-        if answer == "up":
-            client_thread = threading.Thread(target=receive_file, args=(client,))
-            client_thread.start()
-        if answer == "down":
-            client_thread = threading.Thread(target=send_file, args=(client,))
-            client_thread.start()
+def task_manager():
+    while True:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
+            server.bind((ip, port))
+            server.listen(5)
+            print(f"Server is listening on address:{ip,port}...")
+            client, address = server.accept() 
+            print(f"Client with address: {address} connected")
             
+            # Threading system
+            answer = client.recv(buffer_size).decode()
+            if answer == "up":
+                client_thread = threading.Thread(target=receive_file, args=(client,))
+                client_thread.start()
+            if answer == "down":
+                client_thread = threading.Thread(target=send_file, args=(client,))
+                client_thread.start()
+            
+task_manager()
