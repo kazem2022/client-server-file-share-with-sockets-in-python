@@ -222,11 +222,15 @@ def select_file_to_upload():
             selected_file.append(file_path.name)
         except Exception:
             print("Select a file!")
+                
     choose_btn = Button(master=upload_win, text="choose a file", command=open)
     choose_btn.pack()
 
     def send():
-        print("File sent!")
+        if selected_file == []:
+            raise "Select a file!!"
+        else:
+            print("File sent!")
         upload_win.destroy()
     send_btn = Button(master=upload_win, text="send to server", command=send)
     send_btn.pack(pady=5)
