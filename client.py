@@ -237,7 +237,7 @@ def select_file_to_upload():
 
     upload_win.mainloop() 
         
-def task_taskmanager():
+def task_manager():
     """This function is handling client request."""
     client_answer()
     if ans[0] == 1:
@@ -252,5 +252,5 @@ def task_taskmanager():
         messagebox.showinfo("info", "File uploaded")
     
 if __name__ == "__main__":
-    task_taskmanager()
+    task_manager()
     
